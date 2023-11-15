@@ -1,35 +1,73 @@
-@keyframes pulseColor {
-    0%, 100% {
-        background-color: #F69BFA; /* Ajustez la couleur de départ selon vos préférences */
-    }
-    50% {
-        background-color: #82FBFA; /* Ajustez la couleur à mi-chemin selon vos préférences */
-    }
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./images/DALL·E\ 2023-11-15\ 05.25.41\ -\ A\ neatly\ organized\ workspace\ in\ a\ room\ with\ soft\ natural\ lighting.\ On\ a\ wooden\ desk\,\ there\'s\ an\ open\ laptop\ with\ a\ screensaver\ of\ a\ misty\ forest\,\ the\ .png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Arial', sans-serif;
 }
-
-body {
-    animation: pulseColor 5s infinite ease-in-out;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f0f0;
-    background-image: url('./images/DALL·E\ 2023-11-15\ 05.25.41\ -\ A\ neatly\ organized\ workspace\ in\ a\ room\ with\ soft\ natural\ lighting.\ On\ a\ wooden\ desk\,\ there\'s\ an\ open\ laptop\ with\ a\ screensaver\ of\ a\ misty\ forest\,\ the\ .png'); 
-    background-size: cover; 
-    background-position: center; 
-    background-attachment: fixed; 
-}
-
-
 
 .container {
-    margin-top: 50px;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#display {
-    font-size: 2em;
-    margin: 20px;
+.timer-display {
+    text-align: center;
+    font-size: 2em; 
+    color: #333;
+    margin: 10px 0; 
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-button {
-    margin: 5px;
-    padding: 10px;
+.buttons-container {
+    display: flex;
+    flex-direction: column; /* Les boutons en colonne pour les petits écrans */
+    gap: 10px;
 }
+
+.timer-button {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #88cc88;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.timer-button:hover {
+    background-color: #77bb77;
+}
+
+h1{
+    text-align: center;
+}
+
+/* Média queries pour un design adaptatif */
+@media (min-width: 768px) {
+    .timer-display {
+        font-size: 4em; /* Taille plus grande pour les écrans plus larges */
+    }
+
+    .buttons-container {
+        flex-direction: row; /* Les boutons en ligne pour les écrans plus larges */
+    }
+}
+
+/* Vous pouvez ajouter plus de média queries pour gérer différentes tailles d'écran */

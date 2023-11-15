@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro</title>
     <link rel="stylesheet" href="style.css"> 
+</head>
 <body>
     <div class="container">
         <h1>Pomodoro</h1>
-        <div id="display">25:00</div> <!-- Affichage du timer -->
-        <button id="start">Démarrer</button>
-        <button id="stop">Arrêter</button>
-        <button id="reset">Réinitialiser</button>
+        <div id="display" class="timer-display">25.00</div> 
+        <div class="buttons-container">
+            <button id="start" class="timer-button">Démarrer</button>
+            <button id="stop" class="timer-button">Arrêter</button>
+            <button id="reset" class="timer-button">Terminer</button>
+        </div>
     </div>
-
-    <script src="script.js"></script> <!-- Lien vers le fichier JavaScript -->
+    <script src="script.js"></script> 
 </body>
 </html>
+

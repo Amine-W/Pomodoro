@@ -6,6 +6,8 @@ let tempsRestant = travailDurée;
 let enCours = false;
 let timerInterval = null;
 
+var alarmSound = new Audio('sons/Radial.mp3');
+
 function démarrerTimer() {
   if (!enCours) {
     enCours = true;
@@ -18,6 +20,7 @@ function miseÀJourTimer() {
     tempsRestant--;
     afficherTemps(tempsRestant);
   } else {
+    alarmSound.play()
     arrêterTimer();
     // Alterner entre les périodes de travail et de pause
     tempsRestant = (tempsRestant === travailDurée) ? pauseDurée : travailDurée;
@@ -42,10 +45,7 @@ function afficherTemps(secondes) {
   console.log(`${minutes}:${secondesRestantes < 10 ? '0' : ''}${secondesRestantes}`);
 }
 
-// Exemple d'utilisation
-démarrerTimer(); // Pour démarrer
-// arrêterTimer(); // Pour arrêter
-// réinitialiserTimer(); // Pour réinitialiser
+
 
 function afficherTemps(secondes) {
     const display = document.getElementById('display');
@@ -58,5 +58,5 @@ document.getElementById('start').addEventListener('click', démarrerTimer);
 document.getElementById('stop').addEventListener('click', arrêterTimer);
 document.getElementById('reset').addEventListener('click', réinitialiserTimer);
 
-// Initialiser l'affichage
+
 afficherTemps(travailDurée);
