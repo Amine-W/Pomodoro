@@ -46,3 +46,17 @@ function afficherTemps(secondes) {
 démarrerTimer(); // Pour démarrer
 // arrêterTimer(); // Pour arrêter
 // réinitialiserTimer(); // Pour réinitialiser
+
+function afficherTemps(secondes) {
+    const display = document.getElementById('display');
+    const minutes = Math.floor(secondes / 60);
+    const secondesRestantes = secondes % 60;
+    display.textContent = `${minutes}:${secondesRestantes < 10 ? '0' : ''}${secondesRestantes}`;
+}
+
+document.getElementById('start').addEventListener('click', démarrerTimer);
+document.getElementById('stop').addEventListener('click', arrêterTimer);
+document.getElementById('reset').addEventListener('click', réinitialiserTimer);
+
+// Initialiser l'affichage
+afficherTemps(travailDurée);
