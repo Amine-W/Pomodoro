@@ -1,24 +1,24 @@
+@keyframes pulseColor {
+    0%, 100% {
+        background-color: #F69BFA; /* Ajustez la couleur de départ selon vos préférences */
+    }
+    50% {
+        background-color: #82FBFA; /* Ajustez la couleur à mi-chemin selon vos préférences */
+    }
+}
+
 body {
+    animation: pulseColor 5s infinite ease-in-out;
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f0f0;
-    background-image: url('./images/DALL·E\ 2023-11-15\ 05.08.16\ -\ A\ minimalistic\ and\ lo-fi\ chill\ workspace\ for\ a\ Pomodoro\ website\ background.\ The\ scene\ includes\ a\ light\ wooden\ desk\ with\ a\ sleek\ laptop\,\ a\ small\ green\ .png'); 
+    background-image: url('./images/DALL·E\ 2023-11-15\ 05.25.41\ -\ A\ neatly\ organized\ workspace\ in\ a\ room\ with\ soft\ natural\ lighting.\ On\ a\ wooden\ desk\,\ there\'s\ an\ open\ laptop\ with\ a\ screensaver\ of\ a\ misty\ forest\,\ the\ .png'); 
     background-size: cover; 
     background-position: center; 
     background-attachment: fixed; 
 }
 
-body::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Overlay noir semi-transparent */
-    z-index: -1; /* Assurez-vous que l'overlay est en arrière-plan */
-}
+
 
 .container {
     margin-top: 50px;
