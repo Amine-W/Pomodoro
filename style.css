@@ -5,8 +5,6 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Arial', sans-serif;
-    background-size: cover;
     background-position: center;
     background-attachment: fixed;
     font-family: 'Arial', sans-serif;
