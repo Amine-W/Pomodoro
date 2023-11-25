@@ -16,12 +16,12 @@ document.addEventListener('visibilitychange', function() {
 
 function démarrerTimer() {
   if (!timerInterval) {
-    var currentTime = Date.now();
-    localStorage.setItem('startTime', currentTime.toString());
+    localStorage.setItem('startTime', Date.now().toString());
     localStorage.setItem('tempsRestant', tempsRestant.toString());
     timerInterval = setInterval(miseÀJourTimer, 1000);
   }
 }
+
 
 function arrêterTimer() {
   clearInterval(timerInterval);
@@ -29,6 +29,7 @@ function arrêterTimer() {
   localStorage.removeItem('startTime');
   localStorage.removeItem('tempsRestant');
 }
+
 
 function réinitialiserTimer() {
   arrêterTimer();
@@ -51,33 +52,27 @@ let cyclesComplétés = 0;
 function miseÀJourTimer() {
   var startTime = parseInt(localStorage.getItem('startTime'));
   var elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-
-      tempsRestant = enCours === 'travail' ? 
-      Math.max(0, travailDurée - elapsedTime) : 
-      Math.max(0, pauseDurée - elapsedTime);
+  tempsRestant = enCours === 'travail' ? travailDurée - elapsedTime : pauseDurée - elapsedTime;
 
   if (tempsRestant <= 0) {
-    alarmSound.play();
-    arrêterTimer();
-
-    // Gérer la transition entre le travail et la pause
     if (enCours === 'travail') {
       tempsRestant = pauseDurée;
       enCours = 'pause';
+      cyclesComplétés++;
+      document.getElementById('completedCycles').textContent = `Cycles Complétés: ${cyclesComplétés}`;
     } else {
       tempsRestant = travailDurée;
       enCours = 'travail';
-      cyclesComplétés++;
-      document.getElementById('completedCycles').textContent = `Cycles Complétés: ${cyclesComplétés}`;
     }
-
-    localStorage.setItem('startTime', Date.now()); // Réinitialiser l'heure de début
-    localStorage.setItem('tempsRestant', tempsRestant);
-    démarrerTimer();
+    afficherTemps(tempsRestant);
+    alarmSound.play();
+    arrêterTimer();
+    démarrerTimer(); 
   } else {
     afficherTemps(tempsRestant);
   }
 }
+
 
 
 
