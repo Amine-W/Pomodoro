@@ -9,13 +9,18 @@ var alarmSound = new Audio('sons/Radial.mp3');
 
 function démarrerTimer() {
   if (!timerInterval) { 
+    var startTime = Date.now();
+    localStorage.setItem('startTime', startTime);
+    localStorage.setItem('tempsRestant', tempsRestant);
     timerInterval = setInterval(miseÀJourTimer, 1000);
   }
 }
 
 function arrêterTimer() {
   clearInterval(timerInterval);
-  timerInterval = null; // Réinitialiser timerInterval à null
+  timerInterval = null; 
+  localStorage.removeItem('startTime');
+  localStorage.removeItem('tempsRestant');
 }
 
 function réinitialiserTimer() {
@@ -75,6 +80,17 @@ function afficherTemps(secondes) {
 function changerThème(themeName) {
     document.body.className = themeName;
   }
+
+  window.onload = function() {
+    var savedTime = localStorage.getItem('tempsRestant');
+    var startTime = localStorage.getItem('startTime');
+  
+    if (savedTime && startTime) {
+      var elapsedTime = Math.floor((Date.now() - parseInt(startTime)) / 1000);
+      tempsRestant = Math.max(0, parseInt(savedTime) - elapsedTime);
+      démarrerTimer();
+    }
+  };
 
 
 document.getElementById('start').addEventListener('click', démarrerTimer);
