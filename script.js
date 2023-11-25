@@ -7,6 +7,13 @@ let timerInterval = null;
 
 var alarmSound = new Audio('sons/Radial.mp3');
 
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'visible') {
+    miseÀJourTimer(); 
+  }
+});
+
+
 function démarrerTimer() {
   if (!timerInterval) { 
     var startTime = Date.now();
@@ -42,17 +49,15 @@ function afficherTemps(secondes) {
 let cyclesComplétés = 0;
 
 function miseÀJourTimer() {
-  if (tempsRestant > 0) {
-    tempsRestant--;
-    afficherTemps(tempsRestant);
+  var startTime = parseInt(localStorage.getItem('startTime'));
+  var elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+  var tempsActualisé = Math.max(0, parseInt(localStorage.getItem('tempsRestant')) - elapsedTime);
+
+  if (tempsActualisé > 0) {
+    afficherTemps(tempsActualisé);
   } else {
     alarmSound.play();
     arrêterTimer();
-
-    if (enCours === 'travail') {
-      tempsRestant = pauseDurée;
-      enCours = 'pause';
-    } else {
       tempsRestant = travailDurée;
       enCours = 'travail';
       cyclesComplétés++;
@@ -61,8 +66,8 @@ function miseÀJourTimer() {
 
     afficherTemps(tempsRestant);
     démarrerTimer();
-  }
 }
+
 
 function afficherTemps(secondes) {
   const display = document.getElementById('display');
