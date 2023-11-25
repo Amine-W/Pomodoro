@@ -15,17 +15,17 @@ document.addEventListener('visibilitychange', function() {
 
 
 function démarrerTimer() {
-  if (!timerInterval) { 
-    var startTime = Date.now();
-    localStorage.setItem('startTime', startTime);
-    localStorage.setItem('tempsRestant', tempsRestant);
+  if (!timerInterval) {
+    var currentTime = Date.now();
+    localStorage.setItem('startTime', currentTime.toString());
+    localStorage.setItem('tempsRestant', tempsRestant.toString());
     timerInterval = setInterval(miseÀJourTimer, 1000);
   }
 }
 
 function arrêterTimer() {
   clearInterval(timerInterval);
-  timerInterval = null; 
+  timerInterval = null;
   localStorage.removeItem('startTime');
   localStorage.removeItem('tempsRestant');
 }
@@ -51,22 +51,34 @@ let cyclesComplétés = 0;
 function miseÀJourTimer() {
   var startTime = parseInt(localStorage.getItem('startTime'));
   var elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-  var tempsActualisé = Math.max(0, parseInt(localStorage.getItem('tempsRestant')) - elapsedTime);
 
-  if (tempsActualisé > 0) {
-    afficherTemps(tempsActualisé);
-  } else {
+      tempsRestant = enCours === 'travail' ? 
+      Math.max(0, travailDurée - elapsedTime) : 
+      Math.max(0, pauseDurée - elapsedTime);
+
+  if (tempsRestant <= 0) {
     alarmSound.play();
     arrêterTimer();
+
+    // Gérer la transition entre le travail et la pause
+    if (enCours === 'travail') {
+      tempsRestant = pauseDurée;
+      enCours = 'pause';
+    } else {
       tempsRestant = travailDurée;
       enCours = 'travail';
       cyclesComplétés++;
       document.getElementById('completedCycles').textContent = `Cycles Complétés: ${cyclesComplétés}`;
     }
 
-    afficherTemps(tempsRestant);
+    localStorage.setItem('startTime', Date.now()); // Réinitialiser l'heure de début
+    localStorage.setItem('tempsRestant', tempsRestant);
     démarrerTimer();
+  } else {
+    afficherTemps(tempsRestant);
+  }
 }
+
 
 
 function afficherTemps(secondes) {
@@ -93,7 +105,13 @@ function changerThème(themeName) {
     if (savedTime && startTime) {
       var elapsedTime = Math.floor((Date.now() - parseInt(startTime)) / 1000);
       tempsRestant = Math.max(0, parseInt(savedTime) - elapsedTime);
-      démarrerTimer();
+  
+      if (tempsRestant > 0) {
+        démarrerTimer();
+      } else {
+        // Si le temps est écoulé, réinitialiser pour la prochaine session
+        réinitialiserTimer();
+      }
     }
   };
 
